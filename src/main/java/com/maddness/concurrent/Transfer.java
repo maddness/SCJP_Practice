@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.locks.Lock;
 
+import static com.maddness.concurrent.OperationsExecutors.taskId;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
@@ -30,6 +31,9 @@ public class Transfer implements Callable<Boolean> {
     }
 
     public Boolean call() throws Exception {
+        taskId.set((int) Thread.currentThread().getId());
+        LOG.info("Started task " + taskId.get());
+
         Lock lock1 = a.getLock();
         Lock lock2 = b.getLock();
 

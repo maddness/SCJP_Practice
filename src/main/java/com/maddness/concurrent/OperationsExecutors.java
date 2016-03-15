@@ -16,6 +16,12 @@ public class OperationsExecutors {
 
     private static final Logger LOG = LogManager.getLogger(OperationsExecutors.class);
 
+    public static ThreadLocal<Integer> taskId = new ThreadLocal<Integer>() {
+        protected Integer initialValue() {
+            return 0;
+        }
+    };
+
     public static void main(String[] args) throws InterruptedException {
 
         final Account a = new Account(1500);
@@ -30,7 +36,7 @@ public class OperationsExecutors {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
 
         List<Transfer> transfers = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             transfers.add(new Transfer(a, b, new Random().nextInt(20)));
         }
 
