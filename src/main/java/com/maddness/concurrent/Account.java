@@ -16,10 +16,14 @@ public class Account {
     private int balance;
     private AtomicInteger failCounter = new AtomicInteger(0);
 
-    public Account(int balance) {
+    private Account(int balance) {
         this.balance = balance;
         this.id = idCount;
         idCount++;
+    }
+
+    public static Account newAccount(int amount) {
+        return new Account(amount);
     }
 
     public void withdraw(int amount) {

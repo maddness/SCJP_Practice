@@ -5,14 +5,15 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.concurrent.locks.Lock;
 
+import static com.maddness.concurrent.Account.newAccount;
 import static java.util.concurrent.TimeUnit.*;
 
 /**
  * Created by maddness on 14/03/2016.
  */
-public class Operations {
+public class OperationsStoneAge {
 
-    private static final Logger LOG = LogManager.getLogger(Operations.class);
+    private static final Logger LOG = LogManager.getLogger(OperationsStoneAge.class);
 
     public static void transfer(Account acc1, Account acc2, int amount) throws InsufficientFundsException, InterruptedException {
         if (acc1.getBalance() < amount) {
@@ -58,8 +59,8 @@ public class Operations {
 
     public static void main(String[] args) {
 
-        final Account a = new Account(100);
-        final Account b = new Account(100);
+        final Account a = newAccount(100);
+        final Account b = newAccount(100);
 
         new Thread(() -> {
             try {

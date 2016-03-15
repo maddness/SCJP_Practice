@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.*;
 
+import static com.maddness.concurrent.Account.newAccount;
+
 /**
  * Created by maddness on 14/03/2016.
  */
@@ -24,8 +26,8 @@ public class OperationsExecutors {
 
     public static void main(String[] args) throws InterruptedException {
 
-        final Account a = new Account(1500);
-        final Account b = new Account(0);
+        final Account a = newAccount(1500);
+        final Account b = newAccount(0);
 
 
         // Scheduled executors
