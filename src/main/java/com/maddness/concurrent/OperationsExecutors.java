@@ -1,5 +1,6 @@
 package com.maddness.concurrent;
 
+import com.maddness.concurrent.tasks.Transfer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

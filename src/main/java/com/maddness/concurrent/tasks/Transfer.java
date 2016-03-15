@@ -1,5 +1,7 @@
-package com.maddness.concurrent;
+package com.maddness.concurrent.tasks;
 
+import com.maddness.concurrent.Account;
+import com.maddness.concurrent.InsufficientFundsException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
