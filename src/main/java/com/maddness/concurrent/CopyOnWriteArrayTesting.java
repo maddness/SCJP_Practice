@@ -2,49 +2,50 @@ package com.maddness.concurrent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.*;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static java.lang.System.currentTimeMillis;
+import static java.lang.System.nanoTime;
 import static java.util.Collections.synchronizedList;
 import static java.util.concurrent.Executors.newFixedThreadPool;
-import static java.util.concurrent.TimeUnit.MINUTES;
 import static java.util.stream.IntStream.range;
 import static utils.TextUtils.print;
 
 public class CopyOnWriteArrayTesting {
-    public static void main(String[] args) throws InterruptedException {
-
-        ArrayList<Integer> base = new ArrayList<>(100000);
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
+        ArrayList<Integer> base = new ArrayList<>(10000);
         fillList(base);
 
-        List<Integer> normalList = synchronizedList(base);
-        List<Integer> synchList = new CopyOnWriteArrayList<>();
-        synchList.addAll(base);
+        List<Integer> syncList = synchronizedList(base);
+        List<Integer> copyOnWriteList = new CopyOnWriteArrayList<>();
+        copyOnWriteList.addAll(base);
 
+        testCollection(copyOnWriteList, "CopyOnWrite");
+        testCollection(syncList, "Synchronized");
+    }
+
+    private static void testCollection(List<Integer> list, String listType) throws InterruptedException, ExecutionException {
         CountDownLatch latch = new CountDownLatch(1);
         ExecutorService service = newFixedThreadPool(2);
-        service.submit(new ListChecker(normalList, 0, 50000, latch));
-        service.submit(new ListChecker(normalList, 50000, 100000, latch));
-        service.shutdown();
+        Future<Long> result1 = service.submit(new ListChecker(list, 0, 5000, latch));
+        Future<Long> result2 = service.submit(new ListChecker(list, 5000, 10000, latch));
 
-        print("starting...");
-        long timeStart = currentTimeMillis();
+        print("starting for " + listType + " ...");
         latch.countDown();
-        service.awaitTermination(1, MINUTES);
-        long duration = currentTimeMillis() - timeStart;
 
-        print("Time for processing: " + duration + " ms");
+        print("thread1 duration: " + (result1.get() / 1000) + " mcs");
+        print("thread2 duration: " + (result2.get() / 1000) + " mcs");
+        print((result1.get() + result2.get()) / 1000 + " mcs");
+
+        service.shutdown();
+        print("");
     }
 
     private static void fillList(List<Integer> list) {
-        range(1, 100001).forEach(list::add);
+        range(1, 10001).forEach(list::add);
     }
 }
 
-class ListChecker implements Runnable {
+class ListChecker implements Callable<Long> {
     private final List<Integer> list;
     private final int startIndex;
     private final int endIndex;
@@ -59,16 +60,14 @@ class ListChecker implements Runnable {
     }
 
     @Override
-    public void run() {
-        try {
-            latch.await();
+    public Long call() throws Exception {
+        latch.await();
 
-            List<Integer> temp = newArrayList();
-            range(startIndex, endIndex).forEach(i -> temp.add(list.get(i)));
-
-        } catch (InterruptedException e) {
-            print("Thread is interrupted.");
+        long timeStart = nanoTime();
+        for (int i = startIndex; i < endIndex; i++) {
+            list.get(i);
         }
+        return nanoTime() - timeStart;
     }
 }
 

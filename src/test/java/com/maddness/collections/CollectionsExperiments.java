@@ -3,15 +3,23 @@ package com.maddness.collections;
 import com.google.common.collect.Maps;
 import org.junit.Test;
 
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.WeakHashMap;
+import java.util.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static java.util.stream.IntStream.range;
 
 /**
  * Created by maddness on 15/03/2016.
  */
-public class HashMapTest {
+public class CollectionsExperiments {
+    @Test
+    public void testQueue() throws Exception {
+        BlockingQueue<Integer> queue2 = new LinkedBlockingQueue<>(10);
+        System.out.println(queue2.remainingCapacity());
+    }
+
     @Test
     public void testOrderByHashCode() throws Exception {
         Map<Integer, String> map = Maps.newHashMap();
@@ -48,6 +56,17 @@ public class HashMapTest {
         queue.offer(9);
 
         System.out.println(queue);
+
+    }
+
+    @Test
+    public void testfgdd() throws Exception {
+
+        List<Integer> list = newArrayList();
+        range(1, 100).forEach(list::add);
+
+        System.out.println(list);
+        Queue<Integer> queue = new PriorityQueue<>((x, y) -> x - y);
 
     }
 }
