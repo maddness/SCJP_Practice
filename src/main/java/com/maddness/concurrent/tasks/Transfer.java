@@ -1,7 +1,6 @@
 package com.maddness.concurrent.tasks;
 
 import com.maddness.concurrent.Account;
-import com.maddness.concurrent.InsufficientFundsException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,7 +8,7 @@ import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.locks.Lock;
 
-import static com.maddness.concurrent.OperationsExecutors.taskId;
+import static com.maddness.concurrent.ExecutorsTypes.taskId;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**

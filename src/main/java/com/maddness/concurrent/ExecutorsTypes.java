@@ -15,9 +15,9 @@ import static com.maddness.concurrent.Account.newAccount;
 /**
  * Created by maddness on 14/03/2016.
  */
-public class OperationsExecutors {
+public class ExecutorsTypes {
 
-    private static final Logger LOG = LogManager.getLogger(OperationsExecutors.class);
+    private static final Logger LOG = LogManager.getLogger(ExecutorsTypes.class);
 
     public static ThreadLocal<Integer> taskId = new ThreadLocal<Integer>() {
         protected Integer initialValue() {
@@ -32,11 +32,11 @@ public class OperationsExecutors {
 
 
         // Scheduled executors
-        ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+        ScheduledExecutorService scheduledExecutor = java.util.concurrent.Executors.newSingleThreadScheduledExecutor();
         scheduledExecutor.scheduleAtFixedRate(() -> LOG.info("=== Fails in A: " + a.getFailCounter()), 0, 1, TimeUnit.SECONDS);
 
         // Executor pool
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService executorService = java.util.concurrent.Executors.newFixedThreadPool(5);
 
         List<Transfer> transfers = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
