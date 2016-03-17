@@ -1,14 +1,17 @@
 package com.maddness.collections;
 
 import com.google.common.collect.Maps;
+import org.joda.time.DateTime;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.WeakHashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static java.util.stream.IntStream.range;
+import static org.joda.time.format.DateTimeFormat.forPattern;
 
 /**
  * Created by maddness on 15/03/2016.
@@ -60,13 +63,9 @@ public class CollectionsExperiments {
     }
 
     @Test
-    public void testfgdd() throws Exception {
-
-        List<Integer> list = newArrayList();
-        range(1, 100).forEach(list::add);
-
-        System.out.println(list);
-        Queue<Integer> queue = new PriorityQueue<>((x, y) -> x - y);
+    public void testRandom() throws Exception {
+        DateTime dateTime = forPattern("dd/MM/yyyy").parseDateTime("12/07/2013");
+        System.out.println(dateTime.toString("dd MMM yyyy"));
 
     }
 }
