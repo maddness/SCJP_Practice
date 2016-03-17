@@ -1,7 +1,6 @@
 package com.maddness.collections;
 
 import com.google.common.collect.Maps;
-import org.joda.time.DateTime;
 import org.junit.Test;
 
 import java.util.Map;
@@ -10,8 +9,6 @@ import java.util.Queue;
 import java.util.WeakHashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-
-import static org.joda.time.format.DateTimeFormat.forPattern;
 
 /**
  * Created by maddness on 15/03/2016.
