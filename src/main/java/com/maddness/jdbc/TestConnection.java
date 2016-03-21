@@ -21,4 +21,21 @@ public class TestConnection {
         }
 
     }
+
+    public static void executeSomeQuery(String sql) throws SQLException {
+        try (Connection connection = DriverManager.getConnection("url", "user", "pass")) {
+            connection.setAutoCommit(false);
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+                // Fire transactional queries here.
+                statement.execute();
+
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw e;
+            }
+        }
+    }
 }
