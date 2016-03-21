@@ -7,16 +7,16 @@ public class StringsGenerator {
 
     public static void main(String[] args) {
         StringsGenerator gen = new StringsGenerator();
-        gen.gimmeStrings("erf", "yuhj");
+        gen.gimmeStrings("n", "ae");
     }
 
     public void gimmeStrings(String s1, String s2) {
-        if (compareStrins(s1, s2) >= 0) {
+        if (compareStrings(s1, s2) >= 0) {
             System.out.println("Nothing!");
 
         } else {
             String newString = nextString(s1);
-            while (compareStrins(newString, s2) < 0) {
+            while (compareStrings(newString, s2) < 0) {
                 System.out.println(newString);
                 newString = nextString(newString);
             }
@@ -41,7 +41,7 @@ public class StringsGenerator {
         }
     }
 
-    public int compareStrins(String s1, String s2) {
+    public int compareStrings(String s1, String s2) {
         if (s1.length() != s2.length()) {
             return s1.length() - s2.length();
         } else {
