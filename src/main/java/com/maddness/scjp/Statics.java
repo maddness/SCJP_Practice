@@ -24,4 +24,6 @@ package com.maddness.scjp;
 
 class Dog extends Animal {}
 
+class Cat extends Animal {}
+
 class Animal {}

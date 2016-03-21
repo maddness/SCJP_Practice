@@ -31,7 +31,6 @@ public class OperationsStoneAge {
                 if (lock2.tryLock(30, SECONDS)) {
                     try {
 
-
                         acc1.withdraw(amount);
                         acc2.deposit(amount);
 
