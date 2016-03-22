@@ -6,6 +6,12 @@ import java.util.stream.IntStream;
 import static java.lang.Math.pow;
 import static java.lang.System.currentTimeMillis;
 
+/**
+ * Radix sort implementation based on queues compared to Java Collections.sort()
+ *
+ * https://en.wikipedia.org/wiki/Radix_sort
+ *
+ */
 public class Radix {
 
     private List<Queue<Integer>> queues = createQueues();
