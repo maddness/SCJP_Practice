@@ -75,7 +75,7 @@ public class Radix {
     }
 
     public static int length(int val) {
-        return (int)(Math.log10(val)+1);
+        return (int) (Math.log10(val)+1);
     }
 
     public static int getDigit(int val, int place) {
