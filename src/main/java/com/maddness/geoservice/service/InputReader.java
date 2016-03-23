@@ -41,13 +41,13 @@ public class InputReader {
 
     public static List<User> processUsers(String filePath) {
         File file = createFileObject(filePath);
-        List<User> cells = new ArrayList<>(100000);
+        List<User> users = new ArrayList<>(100000);
 
         String line = "";
         try (BufferedReader is = new BufferedReader(new FileReader(file))) {
             while ((line = is.readLine()) != null) {
                 String[] values = line.split(",");
-                cells.add(new User(
+                users.add(new User(
                         parseLong(values[0]),
                         parseDouble(values[2]),
                         parseDouble(values[1])
@@ -59,7 +59,7 @@ public class InputReader {
             throw new NumberFormatException("Problem with parsing users file at line: '" + line + "'. " + e.getMessage());
         }
 
-        return cells;
+        return users;
     }
 
     private static File createFileObject(String filePath) {
