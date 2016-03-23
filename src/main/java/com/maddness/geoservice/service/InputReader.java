@@ -33,7 +33,7 @@ public class InputReader {
         } catch (IOException e) {
             throw new RuntimeException("Problem with processing grid file");
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Problem with parsing grid file at line: " + line);
+            throw new NumberFormatException("Problem with parsing grid file at line: '" + line + "'. " + e.getMessage());
         }
 
         return cells;
@@ -56,7 +56,7 @@ public class InputReader {
         } catch (IOException e) {
             throw new RuntimeException("Problem with processing users file");
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Problem with зфкыштп users file at line: " + line);
+            throw new NumberFormatException("Problem with parsing users file at line: '" + line + "'. " + e.getMessage());
         }
 
         return cells;

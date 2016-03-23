@@ -20,17 +20,17 @@ public class StructureBuilder {
     private static Logger LOG = LogManager.getLogger(StructureBuilder.class);
 
     public static Map<CellKey, Cell> createCellsMap(List<Cell> cells) {
-        Map<CellKey, Cell> cellMap = new HashMap<>(1000);
+        Map<CellKey, Cell> cellsMap = new HashMap<>(1000);
         for (Cell cell : cells) {
             CellKey key = cellKeyFor(cell.getLat(), cell.getLon());
-            if (!cellMap.containsKey(key)) {
-                cellMap.put(key, cell);
+            if (!cellsMap.containsKey(key)) {
+                cellsMap.put(key, cell);
             } else {
-                LOG.error("Cell with duplicated coordinates found: (" + cell.getLat() + "," + cell.getLon() + ")." +
-                        " Primary key violation.");
+                throw new RuntimeException("Cell with duplicated coordinates " +
+                        "(" + cell.getLat() + "," + cell.getLon() + ") found. Primary key violation.");
             }
         }
-        return cellMap;
+        return cellsMap;
     }
 
     public static Map<Long, User> createUsersMap(Map<CellKey, Cell> cells, List<User> users) {
@@ -47,10 +47,12 @@ public class StructureBuilder {
                     user.setCell(cell);
                 } else {
                     LOG.warn("Cell for user " + user.getId() + " not found.");
+                    //TODO: add user to NULL cell;
                 }
 
             } else {
-                LOG.error("User with duplicated ID found : " + user.getId() + ". Primary key violation.");
+                throw new RuntimeException("User with duplicated ID (" + user.getId() + ") found. " +
+                        "Primary key violation.");
             }
         }
         return usersMap;
