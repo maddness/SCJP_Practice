@@ -1,27 +1,31 @@
-package com.maddness.geoservice;
+package com.maddness.geoservice.service;
 
+import com.maddness.geoservice.model.Cell;
+import com.maddness.geoservice.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
 
-public class FileReader {
+public class InputReader {
 
-    private static Logger LOG = LogManager.getLogger(FileReader.class);
+    private static Logger LOG = LogManager.getLogger(InputReader.class);
 
     public static List<Cell> readCells(String filePath) {
         File file = createFileObject(filePath);
         List<Cell> cells = new ArrayList<>(1000);
 
-        try (BufferedReader is = new BufferedReader(new java.io.FileReader(file))) {
-            String line;
+        String line = "";
+        try (BufferedReader is = new BufferedReader(new FileReader(file))) {
             while ((line = is.readLine()) != null) {
                 String[] values = line.split(",");
                 cells.add(new Cell(
@@ -31,28 +35,32 @@ public class FileReader {
                 ));
             }
         } catch (IOException e) {
-            LOG.error("Problem with reading grid file.");
+            throw new RuntimeException("Problem with processing grid file");
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Problem with parsing grid file at line: " + line);
         }
 
         return cells;
     }
 
-    public static List<User> readUsers(String filePath) {
+    public static List<User> processUsers(String filePath) {
         File file = createFileObject(filePath);
         List<User> cells = new ArrayList<>(100000);
 
-        try (BufferedReader is = new BufferedReader(new java.io.FileReader(file))) {
-            String line;
+        String line = "";
+        try (BufferedReader is = new BufferedReader(new FileReader(file))) {
             while ((line = is.readLine()) != null) {
                 String[] values = line.split(",");
                 cells.add(new User(
-                        parseInt(values[0]),
-                        parseDouble(values[1]),
-                        parseDouble(values[2])
+                        parseLong(values[0]),
+                        parseDouble(values[2]),
+                        parseDouble(values[1])
                 ));
             }
         } catch (IOException e) {
-            LOG.error("Problem with reading users file.");
+            throw new RuntimeException("Problem with processing users file");
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Problem with зфкыштп users file at line: " + line);
         }
 
         return cells;
@@ -61,7 +69,7 @@ public class FileReader {
     private static File createFileObject(String filePath) {
         File file = new File(filePath);
         if (!file.exists()) {
-            throw new RuntimeException("File with path " + filePath + " not found.");
+            throw new RuntimeException("File with path '" + filePath + "' not found.");
         }
         return file;
     }

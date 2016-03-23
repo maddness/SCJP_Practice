@@ -1,4 +1,7 @@
-package com.maddness.geoservice;
+package com.maddness.geoservice.model;
+
+import static com.maddness.geoservice.service.InputsChecker.checkCoordinatesForCell;
+import static com.maddness.geoservice.service.InputsChecker.checkMedianDistance;
 
 public class Cell {
 
@@ -9,6 +12,8 @@ public class Cell {
     private int userCount;
 
     public Cell(int lat, int lon, double meanDistance) {
+        checkCoordinatesForCell(lat, lon);
+        checkMedianDistance(meanDistance);
         this.lat = lat;
         this.lon = lon;
         this.meanDistance = meanDistance;
@@ -27,6 +32,10 @@ public class Cell {
         return meanDistance;
     }
 
+    public int getUserCount() {
+        return userCount;
+    }
+
     public void incrementUserCount() {
         userCount++;
     }
@@ -41,6 +50,6 @@ public class Cell {
 
     @Override
     public String toString() {
-        return "(" + lat + "," + lon + ") -> " + userCount  + " users, " + meanDistance + " dist";
+        return "(" + lat + "," + lon + ") -> " + userCount + " users, " + meanDistance + " dist";
     }
 }
