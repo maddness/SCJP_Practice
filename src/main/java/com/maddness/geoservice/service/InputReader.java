@@ -2,8 +2,6 @@ package com.maddness.geoservice.service;
 
 import com.maddness.geoservice.model.Cell;
 import com.maddness.geoservice.model.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,8 +15,6 @@ import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 
 public class InputReader {
-
-    private static Logger LOG = LogManager.getLogger(InputReader.class);
 
     public static List<Cell> readCells(String filePath) {
         File file = createFileObject(filePath);
