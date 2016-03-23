@@ -1,12 +1,10 @@
 package com.maddness.geoservice.model;
 
-import static com.maddness.geoservice.model.CellKey.cellKeyFor;
 import static com.maddness.geoservice.service.InputsChecker.checkCoordinatesForUser;
 
 public class User {
 
     private final long id;
-
     private double lat;
     private double lon;
     private Cell cell;
@@ -16,10 +14,6 @@ public class User {
         this.id = id;
         this.lat = lat;
         this.lon = lon;
-    }
-
-    public CellKey getPossibleCellKey() {
-        return cellKeyFor((int) lat, (int) lon);
     }
 
     public long getId() {
@@ -48,21 +42,6 @@ public class User {
 
     public void setCell(Cell cellKey) {
         this.cell = cellKey;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        return id == user.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) (id ^ (id >>> 32));
     }
 
     @Override

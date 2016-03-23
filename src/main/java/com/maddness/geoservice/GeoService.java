@@ -31,11 +31,11 @@ public class GeoService {
         Map<CellKey, Cell> cellsMap = createCellsMap(cells);
         Map<Long, User> usersMap = createUsersMap(cellsMap, users);
 
-//        System.out.println("== Users");
-//        usersMap.values().forEach(System.out::println);
+        System.out.println("== Users");
+        usersMap.values().forEach(System.out::println);
 
-//        System.out.println("== Cells");
-//        cellsMap.values().forEach(System.out::println);
+        System.out.println("== Cells");
+        cellsMap.values().forEach(System.out::println);
 
         UserUpdater updater = new UserUpdater(cellsMap, usersMap);
         updater.addOrUpdateUser(13, 12.4, 11.5);
